@@ -1,0 +1,43 @@
+# 1. ??? ?? (KakaoService?? @Value? ?? ???? ??)
+kakao:
+  client-id: b5abcc31ef26dc5b9f59e27affc71784
+  client-secret: wejPSbW07dk3gDrFfU0WSxu3mZddaF2n
+  redirect-uri: http://localhost:8080/login/oauth/kakao
+  auth-url: https://kauth.kakao.com/oauth/authorize
+  token-url: https://kauth.kakao.com/oauth/token
+  user-info-url: https://kapi.kakao.com/v2/user/me
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  # 2. Security ?? (?? ??? ?? ??? ${...} ?? ?? ??)
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${kakao.client-id}
+            client-secret: ${kakao.client-secret}
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            redirect-uri: ${kakao.redirect-uri}
+            scope: profile_nickname, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: ${kakao.auth-url}
+            token-uri: ${kakao.token-url}
+            user-info-uri: ${kakao.user-info-url}
+            user-name-attribute: id
