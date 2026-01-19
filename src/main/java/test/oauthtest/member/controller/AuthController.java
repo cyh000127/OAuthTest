@@ -41,7 +41,7 @@ public class AuthController {
 
         log.info("회원 저장 성공: {}", member.getNickname());
 
-        // 무한 리다이렉션을 끊기 위해 임시로 회원 정보 반환
+        // 임시로 회원 정보 반환
         return ResponseEntity.ok(member);
     }
 }

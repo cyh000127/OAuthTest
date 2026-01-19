@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**", "/login/**", "/error").permitAll() // "/error" 추가
                         .anyRequest().authenticated()
-                
+
                 );
 
         return http.build();

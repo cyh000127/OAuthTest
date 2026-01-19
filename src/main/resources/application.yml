@@ -1,8 +1,8 @@
-# 1. ??? ?? (KakaoService?? @Value? ?? ???? ??)
+# ??? ?? (service?? ??? ? ??)
 kakao:
-  client-id: b5abcc31ef26dc5b9f59e27affc71784
-  client-secret: wejPSbW07dk3gDrFfU0WSxu3mZddaF2n
-  redirect-uri: http://localhost:8080/login/oauth/kakao
+  client-id: ${KAKAO_CLIENT_ID}
+  client-secret: ${KAKAO_CLIENT_SECRET}
+  redirect-uri: ${KAKAO_REDIRECT_URI}
   auth-url: https://kauth.kakao.com/oauth/authorize
   token-url: https://kauth.kakao.com/oauth/token
   user-info-url: https://kapi.kakao.com/v2/user/me
@@ -22,7 +22,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
-  # 2. Security ?? (?? ??? ?? ??? ${...} ?? ?? ??)
+  # Security ??
   security:
     oauth2:
       client:
