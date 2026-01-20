@@ -7,6 +7,11 @@ kakao:
   token-url: https://kauth.kakao.com/oauth/token
   user-info-url: https://kapi.kakao.com/v2/user/me
 
+jwt:
+  secret: ${JWT_SECRET_KEY}
+  expiration: 3600000 # 1시간 (밀리초)
+  refresh-expiration: 1209600000 # 14일 (RefreshToken)
+
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MySQL
@@ -41,3 +46,4 @@ spring:
             token-uri: ${kakao.token-url}
             user-info-uri: ${kakao.user-info-url}
             user-name-attribute: id
+

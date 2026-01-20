@@ -15,13 +15,19 @@ public class KakaoUserDto {
     @JsonProperty("kakao_account")
     private KakaoAccount kakaoAccount;
 
-    @Getter @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true)
+    @Getter
+    @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class KakaoAccount {
         private String email;
         private Profile profile;
+        private String age_range;
+        private String birthday;
     }
 
-    @Getter @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true)
+    @Getter
+    @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Profile {
         private String nickname;
     }

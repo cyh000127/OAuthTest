@@ -13,9 +13,12 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String provider;
     private Long kakaoId; // 카카오 고유 번호
     private String nickname;
     private String email;
+    private String ageRange;
+    private String birthday;
 
     @Enumerated(EnumType.STRING)
     private Role role; // USER, ADMIN 등

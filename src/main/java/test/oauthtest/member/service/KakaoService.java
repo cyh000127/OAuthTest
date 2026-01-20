@@ -31,7 +31,7 @@ public class KakaoService {
 
     private final RestClient restClient = RestClient.create();
 
-    // 3, 4단계: 인가 코드로 액세스 토큰 받기
+    // 인가 코드로 액세스 토큰 받기
     public String getAccessToken(String code) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
@@ -50,7 +50,7 @@ public class KakaoService {
         return response.getAccessToken();
     }
 
-    // 5, 6단계: 액세스 토큰으로 사용자 정보 받기
+    // 액세스 토큰으로 사용자 정보 받기
     public KakaoUserDto getUserInfo(String accessToken) {
         return restClient.get()
                 .uri("https://kapi.kakao.com/v2/user/me")

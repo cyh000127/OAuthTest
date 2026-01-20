@@ -8,28 +8,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import test.oauthtest.global.security.JwtAuthenticationFilter;
+import test.oauthtest.global.security.JwtTokenProvider;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**", "/login/**", "/error").permitAll() // "/error" 추가
                         .anyRequest().authenticated()
-
-                );
+                ).
+                // JWT 필터 추가
+                addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
     /**
      * WebSecurityCustomizer: 특정 경로를 시큐리티 필터 체인에서 완전히 제외함.
-     * permitAll()은 필터를 거치지만 문만 열어주는 것이고, ignoring()은 필터 자체를 타지 않음.
-     * 무한 리디렉션이나 403 에러를 방지하는 가장 확실한 방법.
+     * 유저 로그인이 유지되지 않아 무한 리디렉션이 발생 -> 해결하기 위해 ignoring 진행
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
